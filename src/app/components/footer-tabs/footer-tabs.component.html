@@ -1,0 +1,20 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button [routerLink]="['']" routerLinkActive="router-link-active" tab="home">
+      <ion-icon name="home"></ion-icon>
+      Home
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/characters']" tab="person">
+      <ion-icon name="person"></ion-icon>
+      Characters
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/planets']" tab="planet">
+      <ion-icon name="planet"></ion-icon>
+      Planets
+    </ion-tab-button>
+    <ion-tab-button tab="search">
+      <ion-icon name="search"></ion-icon>
+      Search
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
