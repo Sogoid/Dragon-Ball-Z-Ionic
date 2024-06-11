@@ -7,8 +7,8 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { FooterTabsComponent } from '../components/footer-tabs/footer-tabs.component';
-import { MenuTitleService } from '../service/menu-title.service';
+import { FooterTabsComponent } from '../../components/footer-tabs/footer-tabs.component';
+import { MenuTitleService } from '../../service/menu-title.service';
 
 @Component({
   selector: 'app-planets',

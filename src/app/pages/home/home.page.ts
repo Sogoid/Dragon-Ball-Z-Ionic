@@ -5,7 +5,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { MenuTitleService } from '../service/menu-title.service';
+import { MenuTitleService } from '../../service/menu-title.service';
 
 @Component({
   selector: 'app-home',
