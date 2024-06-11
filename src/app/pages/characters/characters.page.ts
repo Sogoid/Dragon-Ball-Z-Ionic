@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import {
   IonCard,
   IonCardContent,
@@ -20,6 +19,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { Characters, PaginationCharacter } from 'src/app/model/characters';
+import { CharactersService } from 'src/app/service/characters.service';
 import { MenuTitleService } from 'src/app/service/menu-title.service';
 
 @Component({
@@ -50,17 +50,17 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
 })
 export class CharactersPage implements OnInit {
   titleHeader: string;
+  paginationCharacter: PaginationCharacter | undefined;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private charactersService: CharactersService,
     private menuTitleService: MenuTitleService
   ) {
     this.titleHeader = '';
   }
-  paginationCharacter: PaginationCharacter | undefined;
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ data }) => {
+    this.charactersService.getCharactersDefault().subscribe((data) => {
       this.paginationCharacter = data;
     });
     this.menuTitleService.changeTitle('Characters');

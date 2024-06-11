@@ -1,10 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PaginationCharacter } from '../model/characters';
@@ -12,66 +7,25 @@ import { PaginationCharacter } from '../model/characters';
   providedIn: 'root',
 })
 export class CharactersService {
-  private url = environment.apiUrl; // URL base da API, obtida a partir das variáveis de ambiente.
+  // private url = environment.apiUrl; // URL base da API, obtida a partir das variáveis de ambiente.
 
   // O HttpClient é injetado através do construtor para ser usado neste serviço.
   constructor(private httpClient: HttpClient) {}
 
   getCharactersDefault(): Observable<PaginationCharacter> {
-    console.log(
-      '🚀 ~ file: characters.service.ts:17 ~ CharactersService ~ url:',
-      `${this.url}/characters`
-    );
-    this.httpClient
-      .get<PaginationCharacter>(`${this.url}/characters`)
-      .subscribe((response) => {
-        let items = response.items; // Aqui está a lista de Characters
-        // Agora você pode fazer o que quiser com os items
-        console.log(items);
-      });
-
-    return this.httpClient.get<PaginationCharacter>(`${this.url}/characters`); //limite padrão da API é 10 registros por consulta.
+    return this.httpClient.get<PaginationCharacter>(environment.apiUrl);
   }
 
   getCharacters(page: number, limit: number): Observable<PaginationCharacter> {
-    let url = `${this.url}/characters?page=${page}&limit=${limit}`;
+    let url = `${environment.apiUrl}?page=${page}&limit=${limit}`;
     return this.httpClient.get<PaginationCharacter>(url);
   }
 
   getCharacterById(id: number): Observable<PaginationCharacter> {
-    let url = `${this.url}/characters/${id}`;
+    let url = `${environment.apiUrl}/${id}`;
     return this.httpClient.get<PaginationCharacter>(url);
   }
 }
-export const characterResolveDefaultList: ResolveFn<PaginationCharacter> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(CharactersService).getCharactersDefault();
-};
-
-//http://localhost:xxx/characters?page=1&limit=10
-export const characterResolvePagination: ResolveFn<PaginationCharacter> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  let paramRoute = route.queryParams;
-
-  return inject(CharactersService).getCharacters(
-    Number(paramRoute['page']),
-    Number(paramRoute['limit'])
-  );
-};
-
-//http://localhost:xxx/characters/detail/1
-export const characterResolveById: ResolveFn<PaginationCharacter> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  return inject(CharactersService).getCharacterById(
-    Number(route.paramMap.get('id')!)
-  );
-};
 
 // Método para buscar todos os personagens. Retorna um Observable que emite um array de personagens.
 // getCharacters(): Observable<Characters[]> {
