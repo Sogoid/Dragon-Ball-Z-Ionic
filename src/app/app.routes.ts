@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { characterResolveDefaultList } from './service/characters.service';
 
 export const routes: Routes = [
   {
@@ -7,7 +8,7 @@ export const routes: Routes = [
       import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'home',
+    path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
@@ -17,6 +18,7 @@ export const routes: Routes = [
       import('./pages/characters/characters.page').then(
         (m) => m.CharactersPage
       ),
+    resolve: { data: characterResolveDefaultList },
   },
   {
     path: 'planets',

@@ -6,15 +6,17 @@ import { BehaviorSubject, filter } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuTitleService {
-  private titleheader = new BehaviorSubject('Home');
-  currentTitle = this.titleheader.asObservable();
+  private titleHeader = new BehaviorSubject('Home');
+  currentTitle = this.titleHeader.asObservable();
 
   constructor(private router: Router) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          if (event.url === '/home') {
+          if (event.url === '') {
+            this.changeTitle('Home');
+          } else if (event.url === '/home') {
             this.changeTitle('Home');
           } else if (event.url === '/characters') {
             this.changeTitle('Characters');
@@ -23,19 +25,9 @@ export class MenuTitleService {
           }
         }
       });
-
-    // this.router.events
-    //   .pipe(filter((event) => event instanceof NavigationEnd))
-    //   .subscribe((event: NavigationEnd) => {
-    //     if (event.url === '/characters') {
-    //       this.changeTitle('characters');
-    //     } else if (event.url === '/planets') {
-    //       this.changeTitle('Planets');
-    //     }
-    //   });
   }
 
-  changeTitle(titleheader: string) {
-    this.titleheader.next(titleheader);
+  changeTitle(titleHeader: string) {
+    this.titleHeader.next(titleHeader);
   }
 }

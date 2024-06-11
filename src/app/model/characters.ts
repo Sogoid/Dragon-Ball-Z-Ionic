@@ -8,40 +8,46 @@ export interface Characters {
   description: string;
   image: string;
   affiliation: string;
-  deletedAt: null | string; // Pode ser null ou uma string
-  originPlanet: {
-    id: number;
-    name: string;
-    isDestroyed: boolean;
-    description: string;
-    image: string;
-    deletedAt: null | string;
-  };
-  transformations: {
-    id: number;
-    name: string;
-    image: string;
-    ki: string;
-    deletedAt: null | string;
-  }[];
+  deletedAt: any;
 }
 
-export interface CharacterListResponse {
-  items: Characters[]; // Array de personagens
-  meta: {
-    totalItems: number;
-    itemCount: number;
-    itemsPerPage: number;
-    totalPages: number;
-    currentPage: number;
-  };
-  links: {
-    first: string;
-    previous: string;
-    next: string;
-    last: string;
-  };
+export interface Meta {
+  totalItems: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
 }
+
+export interface Link {
+  first: string;
+  previous: string;
+  next: string;
+  last: string;
+}
+
+export interface PaginationCharacter {
+  items: Characters[];
+  meta: Meta;
+  links: Link;
+}
+
+// export interface CharacterListResponse {
+//   items: Characters[]; // Array de personagens
+//   meta: {
+//     totalItems: number;
+//     itemCount: number;
+//     itemsPerPage: number;
+//     totalPages: number;
+//     currentPage: number;
+//   };
+//   links: {
+//     first: string;
+//     previous: string;
+//     next: string;
+//     last: string;
+//   };
+// }
 
 //*****************************************************************************
 // Outra maneira de especificar a interface.

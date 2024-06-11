@@ -15,15 +15,15 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class MenuComponent implements OnInit {
-  titleheader: string;
+  titleHeader: string;
 
   constructor(private menuTitleService: MenuTitleService) {
-    this.titleheader = '';
+    this.titleHeader = '';
   }
 
   ngOnInit() {
     this.menuTitleService.currentTitle.subscribe(
-      (titleheader) => (this.titleheader = titleheader)
+      (titleHeader) => (this.titleHeader = titleHeader)
     );
   }
 }

@@ -26,10 +26,10 @@ import { MenuTitleService } from '../../service/menu-title.service';
   ],
 })
 export class PlanetsPage implements OnInit {
-  titleheader: string;
+  titleHeader: string;
 
   constructor(private menuTitleService: MenuTitleService) {
-    this.titleheader = '';
+    this.titleHeader = '';
   }
 
   ngOnInit() {

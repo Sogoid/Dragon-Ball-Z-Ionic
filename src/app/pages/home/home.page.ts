@@ -15,9 +15,9 @@ import { MenuTitleService } from '../../service/menu-title.service';
   imports: [IonTitle, IonHeader, IonContent, IonToolbar],
 })
 export class HomePage implements OnInit {
-  titleheader: string;
+  titleHeader: string;
   constructor(private menuTitleService: MenuTitleService) {
-    this.titleheader = '';
+    this.titleHeader = '';
   }
 
   ngOnInit() {
