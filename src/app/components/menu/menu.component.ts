@@ -1,9 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, NavigationEnd, Router } from '@angular/router';
+
 import {
+  IonBackButton,
+  IonButtons,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
+  IonIcon,
+  IonRow,
+  IonSearchbar,
   IonTitle,
-  IonToolbar, IonButtons, IonBackButton, IonIcon, IonSearchbar, IonCol, IonRow, IonGrid } from '@ionic/angular/standalone';
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { MenuTitleService } from 'src/app/service/menu-title.service';
 
 @Component({
@@ -11,13 +21,36 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true,
-  imports: [IonGrid, IonRow, IonCol, IonSearchbar, IonIcon, IonBackButton, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonSearchbar,
+    IonIcon,
+    IonBackButton,
+    IonButtons,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+  ],
 })
 export class MenuComponent implements OnInit {
   titleHeader: string;
+  // Inicialmente, definimos como false.
+  showSearchBar = false;
 
-  constructor(private menuTitleService: MenuTitleService) {
+  constructor(
+    private menuTitleService: MenuTitleService,
+    private router: Router
+  ) {
     this.titleHeader = '';
+    // Verificamos a rota atual sempre que há uma mudança.
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.showSearchBar = event.urlAfterRedirects !== '/intro';
+      }
+    });
   }
 
   ngOnInit() {

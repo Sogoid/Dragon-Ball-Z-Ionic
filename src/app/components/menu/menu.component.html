@@ -1,21 +1,20 @@
+@if(showSearchBar){
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-toolbar>
-            <ion-title>
-              {{titleHeader}}
-            </ion-title>
-          </ion-toolbar>
+        <ion-col class="ion-align-self-center " size="=6" size-sm="3" size-md="3" size-lg="2">
+          <ion-title> {{titleHeader}} </ion-title>
         </ion-col>
-        <!-- <ion-col></ion-col> -->
-        <ion-col>
-          <ion-toolbar>
-            <ion-searchbar animated="true" placeholder="Search"></ion-searchbar>
-          </ion-toolbar>
+
+        <ion-col size="=0" size-sm="6" size-md="6" size-lg="8"></ion-col>
+
+        <ion-col size="=6" size-sm="3" size-md="3" size-lg="2">
+
+          <ion-searchbar animated="true" placeholder="Search"></ion-searchbar>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
 </ion-header>
+}

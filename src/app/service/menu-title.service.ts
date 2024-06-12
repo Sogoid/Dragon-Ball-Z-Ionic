@@ -15,7 +15,7 @@ export class MenuTitleService {
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
           if (event.url === '') {
-            this.changeTitle('Home');
+            this.changeTitle('Intro');
           } else if (event.url === '/home') {
             this.changeTitle('Home');
           } else if (event.url === '/characters') {

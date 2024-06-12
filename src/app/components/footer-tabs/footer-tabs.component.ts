@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { Event, NavigationEnd, Router, RouterModule } from '@angular/router';
 import {
   IonIcon,
   IonTabBar,
@@ -16,12 +16,17 @@ import { home, person, planet, search } from 'ionicons/icons';
   standalone: true,
   imports: [IonTabButton, IonIcon, IonTabBar, IonTabs, RouterModule],
 })
-export class FooterTabsComponent implements OnInit {
-  constructor() {
-    addIcons({ search, planet, person, home });
-  }
+export class FooterTabsComponent {
+  // Inicialmente, definimos como false.
+  showSearchBar = false;
 
-  ngOnInit() {
-    return this;
+  constructor(private router: Router) {
+    addIcons({ search, planet, person, home });
+    // Verificamos a rota atual sempre que há uma mudança.
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.showSearchBar = event.urlAfterRedirects !== '/intro';
+      }
+    });
   }
 }
