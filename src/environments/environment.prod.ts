@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: '',
+  apiUrl: 'https://dragonball-api.com/api',
   production: true,
 };

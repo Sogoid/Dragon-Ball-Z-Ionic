@@ -10,27 +10,38 @@
       <ion-title size="large">{{titleHeader}}</ion-title>
     </ion-toolbar>
   </ion-header>
-  <h1>Lista de Characters</h1>
-
+  <!-- <h1 class="ion-text-center">Lista de Characters</h1> -->
 
   <ion-grid>
     <ion-row>
       @for (item of paginationCharacter?.items; track $index) {
       <ion-col size-lg="6" size-md="6" size-sm="12" size="=12">
-        <ion-card>
+        <ion-card color="light">
           <ion-grid>
             <ion-row>
-              <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
-                <ion-avatar>
-                  <img alt="Silhouette of mountains" [src]="item.image" />
-                </ion-avatar>
+              <ion-col size-lg="4" size-md="4" size-sm="4" size="=12">
+                <ion-text class="text-tilte">
+                  <h3>
+                    {{item.name}}
+                  </h3>
+                </ion-text>
+                <ion-chip [outline]="true">
+                  <ion-avatar>
+                    <img alt="Silhouette of mountains" [src]="item.image" />
+                  </ion-avatar>
+                </ion-chip>
               </ion-col>
               <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
-                <h3>Nome: {{item.name}}</h3>
-                <p>Raça: {{item.race}}</p>
-                <p>Gênero: {{item.gender}}</p>
-                <p>Ki: {{item.ki}}</p>
-                <p>Ki Máximo: {{item.maxKi}}</p>
+                <ion-text><strong>Raça:</strong> {{item.race}}</ion-text>
+                <br>
+                <br>
+                <ion-text><strong>Gênero:</strong> {{item.gender}}</ion-text>
+                <br>
+                <br>
+                <ion-text><strong>Ki:</strong> {{item.ki}}</ion-text>
+                <br>
+                <br>
+                <ion-text><strong>Ki Máximo:</strong> {{item.maxKi}}</ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -39,7 +50,6 @@
       }
     </ion-row>
   </ion-grid>
-
 
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles"

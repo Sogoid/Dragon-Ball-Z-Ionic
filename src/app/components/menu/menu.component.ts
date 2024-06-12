@@ -3,8 +3,7 @@ import {
   IonContent,
   IonHeader,
   IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+  IonToolbar, IonButtons, IonBackButton, IonIcon, IonSearchbar, IonCol, IonRow, IonGrid } from '@ionic/angular/standalone';
 import { MenuTitleService } from 'src/app/service/menu-title.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [IonGrid, IonRow, IonCol, IonSearchbar, IonIcon, IonBackButton, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class MenuComponent implements OnInit {
   titleHeader: string;

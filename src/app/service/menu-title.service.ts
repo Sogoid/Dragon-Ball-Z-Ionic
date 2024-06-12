@@ -19,9 +19,9 @@ export class MenuTitleService {
           } else if (event.url === '/home') {
             this.changeTitle('Home');
           } else if (event.url === '/characters') {
-            this.changeTitle('Characters');
+            this.changeTitle('Lista de Personagem');
           } else if (event.url === '/planets') {
-            this.changeTitle('Planets');
+            this.changeTitle('Lista dos Planetas');
           }
         }
       });

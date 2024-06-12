@@ -10,18 +10,49 @@
       <ion-title size="large">{{titleHeader}}</ion-title>
     </ion-toolbar>
   </ion-header>
-  <h1>Lista de Planets</h1>
+  <!-- <h1 class="ion-text-center">Lista de Planets</h1> -->
 
-  <ion-list>
-    @for (item of paginationPlanets?.items; track $index) {
-    <ion-item>
-      <ion-label>Nome: {{item.name}}</ion-label>
-      <ion-label>Descrição: {{item.description}}</ion-label>
-      <ion-label>Destruído: {{item.isDestroyed}}</ion-label>
-      <ion-thumbnail>
-        <img alt="Silhouette of mountains" [src]="item.image" />
-      </ion-thumbnail>
-    </ion-item>
-    }
-  </ion-list>
+  <ion-grid>
+    <ion-row>
+      @for (item of paginationPlanets?.items; track $index) {
+      <ion-col size-lg="6" size-md="6" size-sm="12" size="=12">
+        <ion-card color="light">
+          <ion-grid>
+            <ion-row>
+              <ion-col size-lg="4" size-md="4" size-sm="4" size="=12">
+                <ion-text class="text-tilte">
+                  <h3>
+                    {{item.name}}
+                  </h3>
+                </ion-text>
+                <ion-chip [outline]="true">
+                  <ion-avatar>
+                    <img alt="Silhouette of mountains" [src]="item.image" />
+                  </ion-avatar>
+                </ion-chip>
+              </ion-col>
+              <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
+                <ion-text><strong>Descrição:</strong> {{item.description}}</ion-text>
+                <br>
+                <br>
+                <ion-text><strong>Destruído:</strong> {{item.isDestroyed}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- Adicione esta parte ao final da sua lista -->
+  <ion-item *ngIf="!hasMoreItems">
+    <ion-label>No more items</ion-label>
+  </ion-item>
 </ion-content>
