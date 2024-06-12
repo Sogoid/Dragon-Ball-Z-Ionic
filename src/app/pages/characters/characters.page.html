@@ -12,51 +12,42 @@
   </ion-header>
   <h1>Lista de Characters</h1>
 
-  <ion-list *ngFor="let item of paginationCharacter?.items trackBy: trackCharacterId">
-    <ion-item>
-      <ion-label>Nome: {{item.name}}</ion-label>
-      <ion-label>Raça: {{item.race}}</ion-label>
-      <ion-label>Gênero: {{item.gender}}</ion-label>
-      <ion-label>Ki: {{item.ki}}</ion-label>
-      <ion-label>Ki Máximo: {{item.maxKi}}</ion-label>
-      <ion-thumbnail>
-        <img alt="Silhouette of mountains" [src]="item.image" />
-      </ion-thumbnail>
-    </ion-item>
-  </ion-list>
-</ion-content>
 
-
-<!-- <section class="">
-    <div class="">
-      <div *ngFor="let character of characters$ | async; trackBy: trackCharacterId">
+  <ion-grid>
+    <ion-row>
+      @for (item of paginationCharacter?.items; track $index) {
+      <ion-col size-lg="6" size-md="6" size-sm="12" size="=12">
         <ion-card>
-          <ion-card-header class="">
-            <ion-card-title> class="uppercase">Personagem: {{ character.id }}</ion-card-title>
-            <ion-card-title class="uppercase">Personagem: {{ character.name }}</ion-card-title>
-            <ion-card-subtitle class="uppercase">Raça: {{ character.race }}</ion-card-subtitle>
-          </ion-card-header>
-          <div class="flex">
-            <img [src]="character.image" alt="Imagem do {{character.name}}" class="w-7/12 h-[26rem]" ion-card-image
-              title="Personagem {{character.name}}">
-            <div class="flex flex-col justify-start items-start">
-              <ion-card-content>
-                <button (click)="openDialogForDescription(character)" ion-raised-button>
-                  Descrição
-                </button>
-                ion-card-content>
-                <ion-card-content>Ki: {{ character.ki }}</ion-card-content>
-                <ion-card-content>Ki Max: {{ character.maxKi }}</ion-card-content>
-                <ion-card-content>Gênero: {{ character.gender }}</ion-card-content>
-                <ion-card-content>Afiliação: {{ character.affiliation }}</ion-card-content>
-                <ion-card-content>
-              <app-buttonplanets [userId]="character.id" />
-              </ion-card-content>
-            </div>
-          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
+                <ion-avatar>
+                  <img alt="Silhouette of mountains" [src]="item.image" />
+                </ion-avatar>
+              </ion-col>
+              <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
+                <h3>Nome: {{item.name}}</h3>
+                <p>Raça: {{item.race}}</p>
+                <p>Gênero: {{item.gender}}</p>
+                <p>Ki: {{item.ki}}</p>
+                <p>Ki Máximo: {{item.maxKi}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card>
-      </div>
-      <ion-infinite-scroll (ionInfinite)="loadMoreData($event)">
-      </ion-infinite-scroll>
-    </div>
-  </section> -->
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- Adicione esta parte ao final da sua lista -->
+  <ion-item *ngIf="!hasMoreItems">
+    <ion-label>No more items</ion-label>
+  </ion-item>
+</ion-content>

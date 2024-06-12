@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'https://dragonball-api.com/api/characters',
+  apiUrl: '',
   production: true,
 };

@@ -10,10 +10,18 @@
       <ion-title size="large">{{titleHeader}}</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div id="container">
-    <strong>Ready to <ion-title>{{titleHeader}}</ion-title></strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer"
-        href="https://ionicframework.com/docs/components">UI
-        Components</a></p>
-  </div>
+  <h1>Lista de Planets</h1>
+
+  <ion-list>
+    @for (item of paginationPlanets?.items; track $index) {
+    <ion-item>
+      <ion-label>Nome: {{item.name}}</ion-label>
+      <ion-label>Descrição: {{item.description}}</ion-label>
+      <ion-label>Destruído: {{item.isDestroyed}}</ion-label>
+      <ion-thumbnail>
+        <img alt="Silhouette of mountains" [src]="item.image" />
+      </ion-thumbnail>
+    </ion-item>
+    }
+  </ion-list>
 </ion-content>

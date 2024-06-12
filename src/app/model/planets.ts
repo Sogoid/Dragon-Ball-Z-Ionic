@@ -17,3 +17,15 @@ export interface PlanetsMeta {
   totalPages: number;
   currentPage: number;
 }
+export interface Link {
+  first: string;
+  previous: string;
+  next: string;
+  last: string;
+}
+
+export interface PaginationPlanets {
+  items: Planets[];
+  meta: PlanetsMeta;
+  links: Link;
+}

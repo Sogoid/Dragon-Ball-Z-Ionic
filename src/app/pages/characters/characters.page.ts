@@ -2,23 +2,28 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  InfiniteScrollCustomEvent,
+  IonAvatar,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonItem,
   IonLabel,
   IonList,
+  IonRow,
   IonThumbnail,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { Characters, PaginationCharacter } from 'src/app/model/characters';
+import { PaginationCharacter } from 'src/app/model/characters';
 import { CharactersService } from 'src/app/service/characters.service';
 import { MenuTitleService } from 'src/app/service/menu-title.service';
 
@@ -28,6 +33,10 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
   styleUrls: ['./characters.page.scss'],
   standalone: true,
   imports: [
+    IonAvatar,
+    IonCol,
+    IonRow,
+    IonGrid,
     IonLabel,
     IonItem,
     IonList,
@@ -46,11 +55,15 @@ import { MenuTitleService } from 'src/app/service/menu-title.service';
     CommonModule,
     FormsModule,
   ],
-  // providers: [{ provide: CharactersService }],
 })
 export class CharactersPage implements OnInit {
   titleHeader: string;
   paginationCharacter: PaginationCharacter | undefined;
+
+  hasMoreItems: boolean = true;
+
+  private page: number = 1;
+  private limit: number = 58;
 
   constructor(
     private charactersService: CharactersService,
@@ -58,112 +71,42 @@ export class CharactersPage implements OnInit {
   ) {
     this.titleHeader = '';
   }
-
   ngOnInit() {
-    this.charactersService.getCharactersDefault().subscribe((data) => {
-      this.paginationCharacter = data;
-    });
+    this.loadCharacters();
     this.menuTitleService.changeTitle('Characters');
   }
 
-  trackCharacterId(index: number, character: Characters) {
-    return character.id;
+  private loadCharacters() {
+    this.charactersService
+      .getCharacters(this.page, this.limit)
+      .subscribe((data) => {
+        if (this.paginationCharacter) {
+          this.paginationCharacter.items.push(...data.items);
+        } else {
+          this.paginationCharacter = data;
+        }
+        if (
+          this.paginationCharacter.meta.currentPage >=
+          this.paginationCharacter.meta.totalPages
+        ) {
+          this.hasMoreItems = false;
+        }
+        this.page++;
+      });
+  }
+
+  onIonInfinite(ev: InfiniteScrollCustomEvent) {
+    if (
+      this.paginationCharacter &&
+      this.paginationCharacter.meta.currentPage <
+        this.paginationCharacter.meta.totalPages
+    ) {
+      this.loadCharacters();
+      setTimeout(() => {
+        ev.target.complete();
+      }, 500);
+    } else {
+      ev.target.disabled = true;
+    }
   }
 }
-
-// constructor(
-//   private menuTitleService: MenuTitleService,
-//   private charactersService: CharactersService,
-//   public modalController: ModalController
-// ) {
-//   this.titleHeader = '';
-// }
-// characters$ = new BehaviorSubject<Characters[]>([]);
-// meta: {
-//   totalItems: number;
-//   itemCount: number;
-//   itemsPerPage: number;
-//   totalPages: number;
-//   currentPage: number;
-// } = {
-//   totalItems: 0,
-//   itemCount: 0,
-//   itemsPerPage: 6,
-//   totalPages: 0,
-//   currentPage: 1,
-// };
-
-// ngOnInit() {
-//   this.menuTitleService.changeTitle('Characters');
-//   this.getRegisteredCharacters();
-//   this.getData();
-// }
-
-// getRegisteredCharacters() {
-//   this.charactersService.getCharacters().subscribe((characters) => {
-//     this.characters$.next(characters);
-//     console.log('Número de usuários:', characters.length);
-//   });
-// }
-
-// async openDialogForDescription(character: Characters) {
-//   const modal = await this.modalController.create({
-//     component: DialogdescriptionComponent,
-//     componentProps: { character },
-//   });
-
-//   await modal.present();
-
-//   const { data } = await modal.onWillDismiss();
-//   console.log(`Resultado do diálogo de descrição: ${data}`);
-// }
-
-// getData() {
-//   const { currentPage, itemsPerPage } = this.meta;
-
-//   this.charactersService.getData(currentPage, itemsPerPage).subscribe(
-//     (response: {
-//       items: Characters[];
-//       meta: {
-//         totalItems: number;
-//         itemCount: number;
-//         itemsPerPage: number;
-//         totalPages: number;
-//         currentPage: number;
-//       };
-//     }) => {
-//       const currentItems = this.characters$.value;
-//       this.characters$.next([...currentItems, ...response.items]);
-//       this.meta = response.meta;
-//     }
-//   );
-// }
-
-// loadMoreData(event: any) {
-//   this.meta.currentPage++;
-//   this.charactersService
-//     .getData(this.meta.currentPage, this.meta.itemsPerPage)
-//     .subscribe(
-//       (response: {
-//         items: Characters[];
-//         meta: {
-//           totalItems: number;
-//           itemCount: number;
-//           itemsPerPage: number;
-//           totalPages: number;
-//           currentPage: number;
-//         };
-//       }) => {
-//         const currentItems = this.characters$.value;
-//         this.characters$.next([...currentItems, ...response.items]);
-//         this.meta = response.meta;
-//         event.target.complete();
-
-//         if (currentItems.length >= this.meta.totalItems) {
-//           event.target.disabled = true;
-//         }
-//       }
-//     );
-// }
-
-// }
