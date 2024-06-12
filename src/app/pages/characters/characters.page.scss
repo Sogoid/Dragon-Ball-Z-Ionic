@@ -11,7 +11,8 @@ ion-grid {
     box-shadow: 0 4px 30px $card-shadow;
     border: 1px solid $card-border;
     color: $white;
-    height: 18rem;
+    height: 50rem;
+    // width: 20rem;
     .text-tilte {
       text-align: center;
       h3 {
@@ -22,11 +23,12 @@ ion-grid {
       padding: 2rem 0;
       ion-avatar {
         --border-radius: 10px;
-        // --size: 140px;
-        width: 100%;
-        height: 100%;
+        width: 17rem;
+        height: 30rem;
         img {
-          background-size: cover;
+          // width: 16rem;
+          height: 50rem;
+          object-fit: cover;
         }
       }
     }

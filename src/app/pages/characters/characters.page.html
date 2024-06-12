@@ -15,11 +15,11 @@
   <ion-grid>
     <ion-row>
       @for (item of paginationCharacter?.items; track $index) {
-      <ion-col size-lg="6" size-md="6" size-sm="12" size="=12">
+      <ion-col size-lg="3" size-md="3" size-sm="12" size="=12">
         <ion-card color="light">
           <ion-grid>
             <ion-row>
-              <ion-col size-lg="4" size-md="4" size-sm="4" size="=12">
+              <ion-col size="=12">
                 <ion-text class="text-tilte">
                   <h3>
                     {{item.name}}
@@ -31,7 +31,7 @@
                   </ion-avatar>
                 </ion-chip>
               </ion-col>
-              <ion-col class="ion-padding" size-lg="4" size-md="4" size-sm="4" size="=12">
+              <ion-col class="ion-padding" size="=12">
                 <ion-text><strong>Raça:</strong> {{item.race}}</ion-text>
                 <br>
                 <br>
