@@ -57,7 +57,9 @@
   </ion-infinite-scroll>
 
   <!-- Adicione esta parte ao final da sua lista -->
-  <ion-item *ngIf="!hasMoreItems">
+  @if(!hasMoreItems){
+  <ion-item>
     <ion-label>No more items</ion-label>
   </ion-item>
+  }
 </ion-content>

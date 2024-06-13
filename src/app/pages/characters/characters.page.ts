@@ -77,7 +77,7 @@ export class CharactersPage implements OnInit {
   }
   ngOnInit() {
     this.loadCharacters();
-    this.menuTitleService.changeTitle('Characters');
+    this.menuTitleService.changeTitle('Lista de Personagem');
   }
 
   private loadCharacters() {
@@ -112,5 +112,9 @@ export class CharactersPage implements OnInit {
     } else {
       ev.target.disabled = true;
     }
+  }
+
+  get filteredItems(): PaginationCharacter[] {
+    return this.charactersService.filteredItems;
   }
 }

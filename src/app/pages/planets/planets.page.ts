@@ -71,7 +71,7 @@ export class PlanetsPage implements OnInit {
 
   ngOnInit() {
     this.loadPlanets();
-    this.menuTitleService.changeTitle('Planets');
+    this.menuTitleService.changeTitle('Lista dos Planetas');
   }
   private loadPlanets() {
     this.planetsService.getPlanets(this.page, this.limit).subscribe((data) => {
