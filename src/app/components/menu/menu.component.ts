@@ -53,7 +53,9 @@ export class MenuComponent implements OnInit {
     // Verificamos a rota atual sempre que há uma mudança.
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        this.showSearchBar = event.urlAfterRedirects !== '/intro';
+        this.showSearchBar =
+          event.urlAfterRedirects !== '/intro' &&
+          event.urlAfterRedirects !== '/home';
       }
     });
   }

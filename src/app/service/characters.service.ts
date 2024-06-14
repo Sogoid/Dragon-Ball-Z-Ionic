@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Characters, PaginationCharacter } from '../model/characters';
+import { PaginationCharacter } from '../model/characters';
+import { PaginationPlanets } from '../model/planets';
+import { PlanetsService } from './planets.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,18 +26,21 @@ export class CharactersService {
   }
 
   getCharacters(page: number, limit: number): Observable<PaginationCharacter> {
-    let url = `${this.url}/characters?page=${page}&limit=${limit}`;
-    return this.httpClient.get<PaginationCharacter>(url);
+    return this.httpClient.get<PaginationCharacter>(
+      `${this.url}/characters?page=${page}&limit=${limit}`
+    );
   }
 
   getCharactersName(name: string): Observable<PaginationCharacter> {
-    let dataName = `${this.url}/characters?name=${name}`;
-    return this.httpClient.get<PaginationCharacter>(dataName);
+    return this.httpClient.get<PaginationCharacter>(
+      `${this.url}/characters?name=${name}`
+    );
   }
 
   getCharacterById(id: number): Observable<PaginationCharacter> {
-    let url = `${this.url}/characters/${id}`;
-    return this.httpClient.get<PaginationCharacter>(url);
+    return this.httpClient.get<PaginationCharacter>(
+      `${this.url}/characters/${id}`
+    );
   }
 
   get filteredItems(): PaginationCharacter[] {
@@ -41,3 +51,4 @@ export class CharactersService {
     this._filteredItems = value;
   }
 }
+

@@ -7,6 +7,9 @@
   top: 50%;
   transform: translateY(-50%);
 }
+#container img{
+  max-width: 100px;
+}
 
 #container strong {
   font-size: 20px;
@@ -16,9 +19,8 @@
 #container p {
   font-size: 16px;
   line-height: 22px;
-
-  color: #8c8c8c;
-
+  color: white;
+  text-wrap: wrap;
   margin: 0;
 }
 
